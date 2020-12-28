@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar'
 import { AddTask } from './components/AddTask'
 import { FilterBlock } from './components/FilterBlock'
@@ -9,6 +9,22 @@ const App: React.FC = () => {
 
   const [tasks, setTask] = useState<ITodo[]>([])
   const [filter, setFilter] = useState<string>('all')
+
+  // Save data in localStorage// 
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('tasks') || '[]') as ITodo[]
+    setTask(saved)
+    console.log(saved)
+  }, [])
+  
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
+
+
+
+  /////////////////////////////
 
   const addHandler = (title: string): void => {
     const newTask: ITodo = {
