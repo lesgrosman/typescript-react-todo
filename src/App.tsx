@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar'
 import { AddTask } from './components/AddTask'
-import { FilterBlock } from './components/FilterBlock'
 import { TodoList } from './components/TodoList'
 import {ITodo} from './Interfaces'
 
@@ -15,14 +14,11 @@ const App: React.FC = () => {
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('tasks') || '[]') as ITodo[]
     setTask(saved)
-    console.log(saved)
   }, [])
-  
+
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
-
-
 
   /////////////////////////////
 
@@ -47,6 +43,7 @@ const App: React.FC = () => {
       }
       return task
     }))
+    setFilter('all')
   }
 
   const onDeleteHandler = (taskId: number) => {
@@ -73,11 +70,9 @@ const App: React.FC = () => {
       <Navbar/>
       <div className="container">
         <AddTask onAdd={addHandler} /> 
-        <FilterBlock 
+        <TodoList 
           updateFilter={(filter: string) => updateFilter(filter)}
           filter={filter}
-        />
-        <TodoList 
           tasks={filterTasks(tasks, filter)!} 
           onToggle={(taskId: number) => onToggleHandler(taskId)}
           onDelete={(taskId: number) => onDeleteHandler(taskId)}         

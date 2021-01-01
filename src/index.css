@@ -55,3 +55,10 @@ code {
   z-index: 2;
 }
 
+.git {
+  padding-right: 20px;
+}
+.no-tasks {
+  text-align: center;
+}
+
