@@ -9,8 +9,6 @@ const App: React.FC = () => {
   const [tasks, setTask] = useState<ITodo[]>([])
   const [filter, setFilter] = useState<string>('all')
 
-  // Save data in localStorage// 
-
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('tasks') || '[]') as ITodo[]
     setTask(saved)
